@@ -109,10 +109,12 @@ class ProductController extends Controller
      */
     public function destroy(Request $request)
     {
-        $pro = Product::findOrFail($request->id);
-        // dd($request->id, $pro);
-
-        $pro->delete();
+        try {
+            $pro = Product::findOrFail($request->id);
+            $pro->delete();
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Product Not Deleted');
+        }
         return back()->with('success', 'Product Deleted Successfully');
     }
 }

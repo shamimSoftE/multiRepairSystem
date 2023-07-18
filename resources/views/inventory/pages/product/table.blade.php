@@ -2,7 +2,7 @@
     <tr>
         <td>{{ $product->name }}</td>
         <td>{{ $product->model }}</td>
-        {{-- <td>{{ $product->description }}</td> --}}
+
         <td>
             <a href="javascript:void(0)" class="btn btn-sm text-success" onclick="editProduct({{ $product->id }})" title='Edit'>
                 <i class="mdi mdi-pencil" style="font-size: 17px"></i>

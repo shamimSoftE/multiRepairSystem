@@ -58,8 +58,8 @@
 
 
 
-      <li class="nav-item menu-items">
-        <a class="nav-link" href="javascript:void(0)">
+      <li class="nav-item menu-items @if(request()->segment(1) == 'customers') active @endif">
+        <a class="nav-link" href="{{ url('customers') }}">
           <span class="menu-icon">
             <i class="mdi mdi-account-multiple"></i>
           </span>

@@ -55,7 +55,7 @@ class TechnicianController extends Controller
             unset($input['dob']);
         }
 
-        $input['type'] = 0;
+        $input['type'] = 0; //technician contact number his first demo password. He/She can change his password anytime in profile section.
         $input['password'] = Hash::make($request->contact_number);
 
         User::create($input);

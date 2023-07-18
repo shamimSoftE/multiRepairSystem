@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProblemSetupController;
 use App\Http\Controllers\ProductController;
@@ -39,10 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/account_settings', [DashboardController::class, 'edit']);
     Route::post('/account_settings', [DashboardController::class, 'update']);
 
-    // profile
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // supplier
     Route::get('/supplier', [SupplierController::class, 'index']);
@@ -71,6 +68,11 @@ Route::middleware('auth')->group(function () {
     Route::get('product_edit', [ProductController::class, 'edit']);
     Route::post('product_update', [ProductController::class, 'update']);
     Route::post('product_delete', [ProductController::class, 'destroy']);
+
+    // customer
+    Route::get('customers', [CustomerController::class, 'index']);
+    Route::get('customer_edit', [CustomerController::class, 'edit']);
+    Route::post('customer_delete', [CustomerController::class, 'destroy']);
 
 
 });

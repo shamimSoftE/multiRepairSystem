@@ -1,6 +1,6 @@
 @extends('inventory.master')
 
-@section('title', 'Product List')
+@section('title', 'Customer List')
 
 @push('style')
 
@@ -20,10 +20,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
-                        <h4>Product List</h4>
+                        <h4>Customer List</h4>
                         <!-- Button trigger modal -->
-                        <button type="button" style="float: right;" class="btn btn-info" data-toggle="modal" data-target="#productAdd">
-                            Add Product
+                        <button type="button" style="float: right;" class="btn btn-info" data-toggle="modal" data-target="#customerAdd">
+                            Add Customer
                         </button>
                     </div>
 
@@ -32,11 +32,13 @@
                         <thead>
                         <tr>
                             <th class="text-white">Name</th>
-                            <th class="text-white">Model</th>
+                            <th class="text-white">Mobile</th>
+                            <th class="text-white">E-Mail</th>
+                            <th class="text-white">Date Of Birth</th>
                             <th class="text-white">Action</th>
                         </tr>
                         </thead>
-                        <tbody id="productTable">
+                        <tbody id="customerTable">
 
                         </tbody>
                     </table>
@@ -44,7 +46,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <div class="paginationData" style=" float: right; ">{{ $products->links() }}</div>
+                    <div class="paginationData" style=" float: right; ">{{ $customers->links() }}</div>
                 </div>
             </div>
         </div>
@@ -53,32 +55,32 @@
 
 
     <!--Add Modal -->
-    <div class="modal fade" id="productAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="productLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="customerAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="CustomerLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="productLabel">Add Product</h5>
+            <h5 class="modal-title" id="CustomerLabel">Add Customer</h5>
             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" style="border: none; background-color: black!important; font-size: 31px; font-weight: 100;">&times;</span>
             </button>
             </div>
-            <form action="{{ url('product_store') }}" method="POST">
+            <form action="{{ url('Customer_store') }}" method="POST">
                 @csrf
 
                 <div class="modal-body ">
                     <div class="form-group">
                         <label>Name<sup class="text-danger">*</sup></label>
-                        <input type="text" class="form-control text-white" name="name" value="{{ old('name') }}" placeholder="Product Name" required>
+                        <input type="text" class="form-control text-white" name="name" value="{{ old('name') }}" placeholder="Customer Name" required>
                     </div>
 
                     <div class="form-group">
                         <label>Brand/Model<sup class="text-danger">*</sup></label>
-                        <input type="text" class="form-control text-white" name="model" value="{{ old('model') }}" placeholder="Product Brand/Model" required>
+                        <input type="text" class="form-control text-white" name="model" value="{{ old('model') }}" placeholder="Customer Brand/Model" required>
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="description" class="form-control text-white" cols="15" rows="5" placeholder="Product Description">{{ old('description') }}</textarea>
+                        <textarea name="description" class="form-control text-white" cols="15" rows="5" placeholder="Customer Description">{{ old('description') }}</textarea>
                     </div>
                 </div>
 
@@ -89,34 +91,54 @@
             </form>
         </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- edit modal --}}
-    <div class="modal fade" id="productEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proLabelEdit" aria-hidden="true">
+    <div class="modal fade" id="customerEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="proLabelEdit" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="proLabelEdit">Edit Product</h5>
+                    <h5 class="modal-title" id="proLabelEdit">Edit Customer</h5>
                     <button type="button" class="btn-close text-white"
                         style="border: none; background-color: black!important; font-size: 31px; font-weight: 100;"
                         data-bs-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
-                <form action="{{ url('product_update') }}" method="POST">
+                <form action="{{ url('customer_update') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>Name<sup class="text-danger">*</sup></label>
-                            <input type="text" class="form-control text-white" name="name" value="{{ old('name') }}" placeholder="Product Name" required>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Name<sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control text-white" name="name" value="{{ old('name') }}" placeholder="Customer Name" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Contact Number<sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control text-white" name="mobile" value="{{ old('mobile') }}" placeholder="Customer Contact Number" required>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control text-white" name="email" value="{{ old('email') }}" placeholder="Customer Email" >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>DOB<sup class="text-danger">*</sup></label>
+                                        <input type="date" class="form-control text-white" name="dob" value="{{ old('dob') }}" placeholder="Technician Date Of Birth">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Brand/Model<sup class="text-danger">*</sup></label>
-                            <input type="text" class="form-control text-white" name="model" value="{{ old('model') }}" placeholder="Product Brand/Model" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea name="description" class="form-control text-white" cols="15" rows="5" placeholder="Product Description">{{ old('description') }}</textarea>
+                            <label>Address</label>
+                            <textarea name="address" class="form-control text-white" cols="15" rows="5" placeholder="Customer Adress">{{ old('address') }}</textarea>
                         </div>
                         <input type="hidden" name="id">
                     </div>
@@ -134,17 +156,17 @@
 
 @push('script')
     <script>
-        // get product ===========================================================================
+        // get Customer ===========================================================================
         var pageNum = 1;
         pageNum = $('.active>.page-link, .page-link.active').text();
 
         function loadRecords(page = pageNum) {
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             $.ajax({
-                url: '/products?page=' + page,
+                url: '/customers?page=' + page,
                 method: 'GET',
                 success: function (response) {
-                    $('#productTable').html(response);
+                    $('#customerTable').html(response);
                 }
             });
         }
@@ -155,20 +177,22 @@
 
 
 
-         // product Edit=============================================================================
-         function editProduct(id) {
+         // Customer Edit=============================================================================
+         function editcustomer(id) {
             $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
             $.ajax({
-                url: 'product_edit',
+                url: 'customer_edit',
                 method: 'GET',
                 data: {id: id},
                 success: function (res) {
                     console.log(res);
-                    $("#productEdit [name=id]").val(res.id);
-                    $("#productEdit [name=name]").val(res.name);
-                    $("#productEdit [name=model]").val(res.model);
-                    $("#productEdit [name=description]").val(res.description);
-                    $("#productEdit").modal("show");
+                    $("#customerEdit [name=id]").val(res.id);
+                    $("#customerEdit [name=name]").val(res.name);
+                    $("#customerEdit [name=email]").val(res.email);
+                    $("#CustomerEdit [name=mobile]").val(res.mobile);
+                    $("#CustomerEdit [name=dob]").val(res.dob);
+                    $("#CustomerEdit [name=address]").val(res.address);
+                    $("#CustomerEdit").modal("show");
                     // Toastify({text: data[1], duration: 1500, close: false, gravity: "top",  backgroundColor: "linear-gradient(to right, #4caf50, #4caf50)"}).showToast();
                 },
                 error: function(error) {
@@ -178,7 +202,7 @@
         }
 
         // deleteProblemSetUp
-        function deleteProduct(id) {
+        function deletecustomer(id) {
 
             Swal.fire({
                 title: 'Are you sure?',
@@ -193,7 +217,7 @@
                 if (result.isConfirmed) {
                     $.ajaxSetup({ headers: {"X-CSRF-TOKEN": $( 'meta[name="csrf-token"]' ).attr("content"),}, });
                     $.ajax({
-                        url: 'product_delete',
+                        url: 'customer_delete',
                         type: "POST",
                         data: {id: id},
                         success: function (response) {
@@ -218,7 +242,5 @@
 
 
     </script>
-
-
 
 @endpush
